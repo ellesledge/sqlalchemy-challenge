@@ -63,15 +63,15 @@ def tobs():
     
     last = session.query(Measure).order_by(Measure.date.desc()).first()
     clean_date = datetime.strptime(last.date, '%Y-%m-%d')
-    a_year = clean_date - dt.timedelta(days=365) 
+    one_year = clean_date - dt.timedelta(days=366) 
     
-    pop_stat = session.query(Station.station, Station.name, func.count(Measure.station)).\
+    all_stat = session.query(Station.station, Station.name, func.count(Measure.station)).\
                     filter(Measure.station == Station.station).\
                     group_by(Measure.station).\
                     order_by(func.count(Measure.station).desc()).all()
     
     results = session.query(Measure.tobs).\
-        filter(Measure.station == pop_stat[0][0], Measure.date>=a_year, Measure.date<=clean_date).all()
+        filter(Measure.station == all_stat[0][0], Measure.date>=one_year, Measure.date<=clean_date).all()
     
     session.close()
     
