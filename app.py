@@ -54,13 +54,7 @@ def stations():
     
     all_stations = []
     for row in results:
-        all_stations.append(row._asdict())
-#     for station, name in results:
-#         stat_dict = {}
-#         stat_dict['station'] = station
-#         stat_dict['name'] = name
-#         all_stations.append(stat_dict)
-    
+        all_stations.append(row._asdict())  
     return jsonify(all_stations)
 
 @app.route("/api/v1.0/tobs")
